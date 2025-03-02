@@ -1,0 +1,15 @@
+services:
+  todo_frontend:
+    build:
+      context: ./frontend
+    container_name: Todo-App
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend:/app
+      - /frontend/node_modules
+    working_dir: /app
+    depends_on:
+      - todo_backend
+    networks:
+      - app-network
