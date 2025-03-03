@@ -70,3 +70,18 @@ This will:
    • Start the NextJS client application.
    • Spin up a Java SpringBoot instance.
    • Spin up a MySQL with Liquibase.
+
+### View Application & Database
+
+1. View Todo App at http://localhost:3001
+
+2. View Data at http://localhost:8081 
+
+   Credentials are:
+      Server: leave blank
+      User: user
+      Password: password
+   
+   The database is called "todo_db"
+
+3. View REST endpoints at http://localhost:8080/swagger-ui/index.html
