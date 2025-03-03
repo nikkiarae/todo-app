@@ -21,6 +21,16 @@ interface TodoFormDialogProps {
   todo?: Todo | null;
 }
 
+/**
+ * TodoFormDialog Component
+ * 
+ * This component renders a dialog for adding, editing, or deleting a TODO item.
+ * 
+ * @param open - A boolean to control the visibility of the dialog.
+ * @param onClose - A callback function to close the dialog.
+ * @param todo - An optional TODO item to edit or delete. If not provided, the form will create a new TODO.
+ * @returns A dialog form for adding, editing, or deleting a TODO item.
+ */
 const TodoFormDialog: FC<TodoFormDialogProps> = ({ open, onClose, todo }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

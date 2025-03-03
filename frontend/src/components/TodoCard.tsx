@@ -14,6 +14,15 @@ interface TodoCardProps {
   onClick: (todo: Todo) => void;
 }
 
+/**
+ * TodoCard Component
+ * 
+ * This component renders a card that displays the details of a TODO item.
+ * 
+ * @param todo - The TODO item to be displayed in the card.
+ * @param onClick - A callback function triggered when the card is clicked.
+ * @returns A clickable card displaying the TODO item's details.
+ */
 const TodoCard: FC<TodoCardProps> = ({ todo, onClick }) => {
   return (
       <Card
