@@ -23,13 +23,15 @@ const queryClient = new QueryClient();
 
 const AppWrapper: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider palette={theme}>
-          <SnackbarProvider>
-              {children}
-          </SnackbarProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider palette={theme}>
+            <SnackbarProvider>
+                {children}
+            </SnackbarProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </>
   );
 };
 

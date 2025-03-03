@@ -1,8 +1,8 @@
 "use client";
 
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, FormEvent } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createTodo, updateTodo } from '@/lib/services/api';
+import { createTodo, updateTodo, deleteTodo } from '@/lib/services/api'; // Add deleteTodo
 import {
   Dialog,
   DialogTitle,
@@ -14,6 +14,7 @@ import {
   Checkbox,
 } from '@mui/material';
 import { Todo } from '@/types/general';
+import { useSnackbar } from '@/hooks/useSnackbar';
 
 interface TodoFormDialogProps {
   open: boolean;
@@ -37,6 +38,7 @@ const TodoFormDialog: FC<TodoFormDialogProps> = ({ open, onClose, todo }) => {
   const [completed, setCompleted] = useState(false);
 
   const queryClient = useQueryClient();
+  const { showSnackbar } = useSnackbar();
 
   // Reset form when the dialog opens or the todo changes
   useEffect(() => {
@@ -51,15 +53,37 @@ const TodoFormDialog: FC<TodoFormDialogProps> = ({ open, onClose, todo }) => {
     }
   }, [todo, open]);
 
+  // Mutation for creating or updating a TODO
   const mutation = useMutation({
     mutationFn: todo ? updateTodo : createTodo,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
+      showSnackbar(
+        `Todo ${todo ? 'updated' : 'added'} successfully!`,
+        'success'
+      );
       onClose();
+    },
+    onError: () => {
+      showSnackbar('Something went wrong. Please try again.', 'error');
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Mutation for deleting a TODO
+  const deleteMutation = useMutation({
+    mutationFn: deleteTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+      showSnackbar('Todo deleted successfully!', 'success');
+      onClose();
+    },
+    onError: () => {
+      showSnackbar('Failed to delete the todo. Please try again.', 'error');
+    },
+  });
+
+  // Handle form submission for save/update
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (todo) {
       mutation.mutate({ ...todo, title, description, completed });
@@ -68,10 +92,17 @@ const TodoFormDialog: FC<TodoFormDialogProps> = ({ open, onClose, todo }) => {
     }
   };
 
+  // Handle delete action
+  const handleDelete = () => {
+    if (todo) {
+      deleteMutation.mutate(Number(todo.id));
+    }
+  };
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>{todo ? 'Edit Todo' : 'Add Todo'}</DialogTitle>
-      <DialogContent >
+      <DialogContent>
         <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
@@ -106,6 +137,16 @@ const TodoFormDialog: FC<TodoFormDialogProps> = ({ open, onClose, todo }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
+        {todo && (
+          <Button
+            variant="contained"
+            color="error"
+            disabled={deleteMutation.isPending}
+            onClick={handleDelete}
+          >
+            {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+          </Button>
+        )}
         <Button
           type="submit"
           variant="contained"
