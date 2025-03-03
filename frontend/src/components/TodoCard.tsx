@@ -26,6 +26,7 @@ interface TodoCardProps {
 const TodoCard: FC<TodoCardProps> = ({ todo, onClick }) => {
   return (
       <Card
+        data-testid="todo-card" 
         sx={{ cursor: "pointer", height: "100%" }}
         onClick={() => onClick(todo)}
       >

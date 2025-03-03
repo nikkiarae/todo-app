@@ -44,24 +44,11 @@ Before you start, make sure you have the following installed:
    FRONTEND_URL=http://localhost:3001
 
    # Springboot Connection 
-   BACKEND_URL=http://loclahost:8080
+   BACKEND_URL=http://localhost:8080
 
    ```
 
 ### Backend 
-
-1. Switch to "backend" Directory
-
-   ```bash
-   cd backend
-   ```
-
-2. Install the dependencies:
-
-   ```bash
-   npm install
-
-   ```
 
 ### Running Application
 
@@ -80,6 +67,6 @@ Before you start, make sure you have the following installed:
    ```
 
 This will:
-• Start the NextJS client application.
-• Spin up a Java SpringBoot instance.
-• Spin up a MySQL with Liquibase.
+   • Start the NextJS client application.
+   • Spin up a Java SpringBoot instance.
+   • Spin up a MySQL with Liquibase.
