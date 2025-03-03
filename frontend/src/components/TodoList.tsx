@@ -5,8 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchTodos } from '@/lib/services/api';
 import { Grid2 as Grid, Typography } from '@mui/material';
 import TodoFormDialog from './TodoForm';
-import { Todo } from '@/types/general';
 import TodoCard from './TodoCard';
+import { Todo } from '@/types/general';
 
 const TodoList: FC = () => {
   const { data: todos, isLoading, isError } = useQuery({

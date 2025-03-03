@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
   env: {
     FRONTEND_URL: FRONTEND_URL,
     BACKEND_URL: BACKEND_URL
-    
   },
 };
 

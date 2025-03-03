@@ -7,7 +7,7 @@
 Before you start, make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (v18 or later)
-- [Docker](https://www.docker.com/) (optional for MongoDB setup)
+- [Docker](https://www.docker.com/)
 - [Git](https://git-scm.com/)
 
 ---

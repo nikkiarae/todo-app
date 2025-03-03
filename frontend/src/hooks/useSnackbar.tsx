@@ -4,6 +4,7 @@ import {
     FC,
     PropsWithChildren,
     createContext,
+    useCallback,
     useContext,
     useMemo,
     useState,
@@ -23,8 +24,7 @@ import {
   });
   
   // Provider component
-  interface SnackbarProviderProps {}
-  export const SnackbarProvider: FC<PropsWithChildren<SnackbarProviderProps>> = ({
+  export const SnackbarProvider: FC<PropsWithChildren> = ({
     children,
   }) => {
     const [snackbar, setSnackbar] = useState({
@@ -34,13 +34,13 @@ import {
     });
   
     // Show snack bar function
-    const showSnackbar = (message: string, severity: AlertColor = "success") => {
+    const showSnackbar = useCallback((message: string, severity: AlertColor = "success") => {
       setSnackbar({ open: true, message, severity });
-    };
+    }, []);
   
-    const hideSnackbar = () => {
+    const hideSnackbar = useCallback(() => {
       setSnackbar({ open: false, message: "", severity: "success" });
-    };
+    }, []);
   
     const value = useMemo(
       () => ({
