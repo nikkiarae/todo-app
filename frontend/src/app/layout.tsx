@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Wrapper } from "@/components/Layout";
-import "@/styles/globals.css";
 import Layout from "@/components/Layout/Layout";
 
 export const metadata: Metadata = {
